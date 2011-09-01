@@ -21,7 +21,7 @@ ActionMailer::Base.sendmail_settings = {
 ActionMailer::Base.delivery_method = :sendmail
 
 class Mailer < ActionMailer::Base
-  def notification(str)
+  def report(str)
     subject "Backup report"
 
     part :body => str

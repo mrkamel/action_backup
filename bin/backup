@@ -24,6 +24,6 @@ end
 require_files "up"
 require_files "run"
 
-Mailer.deliver_notification sio.string
+Mailer.deliver_report sio.string
 
 require_files "down"
