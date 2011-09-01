@@ -1,0 +1,24 @@
+
+= action_backup
+
+== State
+
+This is early beta.
+
+== Install 
+
+1. Install dependencies.
+
+  On debian machines:
+    $ apt-get install libactionmailer-ruby1.8
+
+== Setup
+
+1. Email config
+
+  Edit <tt>config/mailer.rb</tt>
+
+2. Tasks
+
+  Tasks doing some initializing stuff goes into the <b>up</b>-directory, they are executed first. Backup tasks has to be placed into the <b>run</b>-directory. Finally, ruby files in <b>down<b> are executed to clean up, shutdown the machine or sth. like that. Warning: <b>All</b>files with <i>".rb"</i>-extension are called, so be carefull.
+
