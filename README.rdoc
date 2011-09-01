@@ -23,5 +23,5 @@ This is early beta.
    Tasks doing some initializing stuff goes into the <b>up</b>-directory, they are executed first. 
    Backup tasks has to be placed into the <b>run</b>-directory. 
    Finally, ruby files in <b>down</b> are executed to clean up, shutdown the machine or sth. like that. 
-   Warning: <b>All</b>files with <i>".rb"</i>-extension are called, so be carefull.
+   Warning: <b>All</b> files with <i>".rb"</i>-extension are called, so be carefull.
 
