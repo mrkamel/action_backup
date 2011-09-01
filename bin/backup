@@ -1,0 +1,29 @@
+#!/usr/bin/ruby
+
+BACKUP_ROOT = File.join(File.dirname(__FILE__), "..")
+
+require "stringio"
+require File.join(BACKUP_ROOT, "config/mailer.rb")
+
+sio = StringIO.new
+$stderr = sio
+$stdout = sio
+
+def require_files(dir)
+  Dir.foreach(File.join(BACKUP_ROOT, dir)).sort.each do | file |
+    begin
+      require File.join(BACKUP_ROOT, dir, file) if file =~ /\.rb$/
+    rescue Exception => e
+      puts "Backup Task #{File.join(dir, file)} failed:"
+      puts e
+      puts e.backtrace
+    end
+  end
+end
+
+require_files "up"
+require_files "run"
+
+Mailer.deliver_notification sio.string
+
+require_files "down"
