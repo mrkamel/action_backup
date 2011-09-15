@@ -6,6 +6,7 @@ require "stringio"
 require File.join(BACKUP_ROOT, "config/mailer.rb")
 
 Dir[File.join(BACKUP_ROOT, "lib", "*.rb")].each { |file| require file }
+Dir[File.join(BACKUP_ROOT, "helpers", "*.rb")].each { |file| require file }
 
 sio = StringIO.new
 $stderr = sio
