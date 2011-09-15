@@ -14,6 +14,8 @@ $stdout = sio
 
 def exec_tasks(dir)
   Dir[File.join(BACKUP_ROOT, dir, "*.rb")].sort.each do |file|
+    puts file
+
     begin
       require file
     rescue Exception => e
