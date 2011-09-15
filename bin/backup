@@ -5,14 +5,16 @@ BACKUP_ROOT = File.join(File.dirname(__FILE__), "..")
 require "stringio"
 require File.join(BACKUP_ROOT, "config/mailer.rb")
 
+Dir[File.join(BACKUP_ROOT, "lib", "*.rb")].each { |file| require file }
+
 sio = StringIO.new
 $stderr = sio
 $stdout = sio
 
-def require_files(dir)
-  Dir.foreach(File.join(BACKUP_ROOT, dir)).sort.each do | file |
+def exec_tasks(dir)
+  Dir[File.join(BACKUP_ROOT, dir, "*.rb")].sort.each do |file|
     begin
-      require File.join(BACKUP_ROOT, dir, file) if file =~ /\.rb$/
+      require file
     rescue Exception => e
       puts "Backup Task #{File.join(dir, file)} failed:"
       puts e
@@ -21,9 +23,10 @@ def require_files(dir)
   end
 end
 
-require_files "up"
-require_files "run"
+exec_tasks "backup/up"
+exec_tasks "backup/run"
 
 Mailer.deliver_report sio.string
 
-require_files "down"
+exec_tasks "backup/down"
+
