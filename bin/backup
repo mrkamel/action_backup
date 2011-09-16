@@ -9,6 +9,7 @@ ARGV.each { |arg| ENV[$1] = $2 if arg =~ /^([^=]+)=(.*)$/ }
 # requirements
 
 require "stringio"
+require "fileutils"
 require File.join(BACKUP_ROOT, "config/mailer.rb")
 
 Dir[File.join(BACKUP_ROOT, "lib", "*.rb")].each { |file| require file }
