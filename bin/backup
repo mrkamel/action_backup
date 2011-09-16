@@ -2,34 +2,56 @@
 
 BACKUP_ROOT = File.join(File.dirname(__FILE__), "..")
 
+# parse command line arguments
+
+ARGV.each { |arg| ENV[$1] = $2 if arg =~ /^([^=]+)=(.*)$/ }
+
+# requirements
+
 require "stringio"
 require File.join(BACKUP_ROOT, "config/mailer.rb")
 
 Dir[File.join(BACKUP_ROOT, "lib", "*.rb")].each { |file| require file }
 Dir[File.join(BACKUP_ROOT, "helpers", "*.rb")].each { |file| require file }
 
+# read ONLY command line argument
+
+ONLY = ENV["ONLY"].to_s.split(",")
+
+# let stdout and stderr write into string io
+
 sio = StringIO.new
 $stderr = sio
 $stdout = sio
 
-def exec_tasks(dir)
-  Dir[File.join(BACKUP_ROOT, dir, "*.rb")].sort.each do |file|
-    puts file
+# execute backup tasks
 
-    begin
-      require file
-    rescue Exception => e
-      puts "Backup Task #{File.join(dir, file)} failed:"
-      puts e
-      puts e.backtrace
+def exececute_tasks(dir)
+  Dir[File.join(BACKUP_ROOT, dir, "*.rb")].sort.each do |file|
+    relative_path = File.join(dir, File.basename(file))
+
+    # if ONLY is set up, execute task only if listed in ONLY
+
+    if ONLY.empty? || ONLY.include?(relative_path)
+      puts relative_path
+      puts "-" * relative_path.length
+      puts
+
+      begin
+        require file
+      rescue Exception => e
+        puts "Backup Task #{relative_path} failed:"
+        puts e
+        puts e.backtrace
+      end
     end
   end
 end
 
-exec_tasks "backup/up"
-exec_tasks "backup/run"
+execute_tasks "backup/up"
+execute_tasks "backup/run"
 
 Mailer.deliver_report sio.string
 
-exec_tasks "backup/down"
+execute_tasks "backup/down"
 
