@@ -26,7 +26,7 @@ $stdout = sio
 
 # execute backup tasks
 
-def exececute_tasks(dir)
+def execute_tasks(dir)
   Dir[File.join(BACKUP_ROOT, dir, "*.rb")].sort.each do |file|
     relative_path = File.join(dir, File.basename(file))
 
