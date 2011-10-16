@@ -2,6 +2,8 @@
 
 BACKUP_ROOT = File.join(File.dirname(__FILE__), "..")
 
+BACKUP_TIME = Time.now
+
 # parse command line arguments
 
 ARGV.each { |arg| ENV[$1] = $2 if arg =~ /^([^=]+)=(.*)$/ }
