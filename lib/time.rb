@@ -10,6 +10,10 @@ class Time
     return mday == 1
   end
 
+  def nth_day_of_month?(n)
+    return mday == n
+  end
+
   def first_week_of_month?
     return mday.between?(1, 7)
   end 
