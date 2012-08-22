@@ -39,6 +39,7 @@ def execute_tasks(dir)
     # if ONLY is set up, execute task only if listed in ONLY
 
     if ONLY.empty? || ONLY.include?(relative_path)
+      puts
       puts relative_path
       puts "-" * relative_path.length
       puts
