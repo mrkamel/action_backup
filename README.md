@@ -1,5 +1,5 @@
 
-# action_backup
+# ActionBackup
 
 ## State
 
@@ -31,7 +31,11 @@ $ /var/lib/gems/1.8/bin/bundle
 
 ## Email config
 
-Edit <tt>config/mailer.rb</tt>
+ActionBackup will send out a report when finished.
+However, it requires a valid email (sendmail, smtp, etc.) configuration.
+To add your configuration, edit <tt>config/mailer.rb</tt>
+
+If you don't know Rails' ActionMailer, please have a look at e.g. http://apidock.com/rails/v2.3.8/ActionMailer/Base
 
 ## Tasks
 
