@@ -3,7 +3,8 @@
 
 ## State
 
-This is early beta.
+This software has been used for a long time without any issues.
+However, we of course don't give any warranty.
 
 ## Install 
 
@@ -28,13 +29,11 @@ If you're on a debian squeeze machine, you maybe have to bundle via:
 $ /var/lib/gems/1.8/bin/bundle
 </pre>
 
-## Setup
-
-1. Email config
+## Email config
 
 Edit <tt>config/mailer.rb</tt>
 
-2. Tasks
+## Tasks
 
 Tasks required for initializing certain things should be placed under the <tt>up</tt> directory. They are executed at first.
 Backup tasks have to be placed under the <tt>run</tt> directory.
