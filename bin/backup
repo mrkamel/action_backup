@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-BACKUP_ROOT = File.join(File.dirname(__FILE__), "..")
+BACKUP_ROOT = File.expand_path("../..", __FILE__)
 
 BACKUP_TIME = Time.now
 
@@ -10,6 +10,8 @@ ARGV.each { |arg| ENV[$1] = $2 if arg =~ /^([^=]+)=(.*)$/ }
 
 # requirements
 
+require "rubygems"
+require "bundler/setup"
 require "stringio"
 require "fileutils"
 require "date"
