@@ -1,7 +1,7 @@
 
 require "action_mailer"
 
-ActionMailer::Base.template_root = File.dirname __FILE__
+ActionMailer::Base.template_root = File.dirname(__FILE__)
 
 class ActionMailer::Base
   def from
@@ -27,3 +27,4 @@ class Mailer < ActionMailer::Base
     part :body => str
   end
 end
+
