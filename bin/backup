@@ -39,6 +39,8 @@ def execute_tasks(dir)
     # if ONLY is set up, execute task only if listed in ONLY
 
     if ONLY.empty? || ONLY.include?(relative_path)
+      start = Time.now
+
       puts
       puts relative_path
       puts "-" * relative_path.length
@@ -51,6 +53,10 @@ def execute_tasks(dir)
         puts e
         puts e.backtrace
       end
+
+      puts
+      puts "Task took: #{(Time.now - start).to_i} seconds"
+      puts
     end
   end
 end
