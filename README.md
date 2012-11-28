@@ -18,27 +18,27 @@ Installing the dependencies.
 Install ruby and rubygems.
 Afterwards, install bundler via:
 
-<pre>
+```
 $ gem install bundler
-</pre>
+```
 
 Finally, bundle:
 
-<pre>
+```
 $ cd /path/to/action_backup && bundle
-</pre>
+```
 
 If you're on a debian squeeze machine, you maybe have to bundle via:
 
-<pre>
+```
 $ /var/lib/gems/1.8/bin/bundle
-</pre>
+```
 
 After you've added your first backup task run
 
-<pre>
+```
 /path/to/action_backup/bin/backup
-</pre>
+```
 
 to start ActionBackup and your tasks.
 
