@@ -48,8 +48,6 @@ ActionBackup will send out a report when all backup tasks have been finished.
 However, it requires a valid email configuration (sendmail, smtp, etc.).
 To add your configuration, edit <tt>config/mailer.rb</tt>
 
-If you don't know Rails' ActionMailer, please have a look at e.g. http://apidock.com/rails/v2.3.8/ActionMailer/Base
-
 ## Tasks
 
 ActionBackup offers three categories for backup tasks.

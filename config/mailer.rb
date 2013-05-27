@@ -1,31 +1,19 @@
 
-require "action_mailer"
+require "mail"
 require "socket"
 
-ActionMailer::Base.template_root = File.dirname(__FILE__)
-
-class ActionMailer::Base
-  def from
-    "test@example.com"
-  end
-
-  def recipients
-    "test@example.com"
-  end
+Mail.defaults do
+  delivery_method :sendmail, :location => "/usr/sbin/sendmail", :arguments => "-i"
 end
 
-ActionMailer::Base.sendmail_settings = {
-  :location => "/usr/sbin/sendmail",
-  :arguments => "-i -t"
-}
+module Report
+  def self.new
+    Mail.new do
+      from "test@example.com"
+      to "test@example.com"
 
-ActionMailer::Base.delivery_method = :sendmail
-
-class Mailer < ActionMailer::Base
-  def report(str)
-    subject "Backup report - #{Socket.gethostname}"
-
-    part :body => str
+      subject "Backup report - #{Socket.gethostname}"
+    end
   end
 end
 

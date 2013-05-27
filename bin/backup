@@ -64,7 +64,9 @@ end
 execute_tasks "backup/up"
 execute_tasks "backup/run"
 
-Mailer.deliver_report sio.string
+report = Report.new
+report.body = sio.string
+report.deliver
 
 execute_tasks "backup/down"
 
