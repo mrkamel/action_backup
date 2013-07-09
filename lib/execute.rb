@@ -8,7 +8,7 @@ def execute(cmd, options = {})
 
   puts output
 
-  puts %x{ #{cmd} 2>&1 }
+  puts %x{ ( #{cmd} ) 2>&1 }
   
   $?.success?
 end
