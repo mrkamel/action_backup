@@ -28,12 +28,6 @@ Finally, bundle:
 $ cd /path/to/action_backup && bundle
 ```
 
-If you're on a debian squeeze machine, you maybe have to bundle via:
-
-```
-$ /var/lib/gems/1.8/bin/bundle
-```
-
 After you've added your first backup task run
 
 ```
