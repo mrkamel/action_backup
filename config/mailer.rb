@@ -9,8 +9,8 @@ end
 module Report
   def self.new
     Mail.new do
-      from "test@example.com"
-      to "test@example.com"
+      from "test@localhost"
+      to "test@localhost"
 
       subject "Backup report - #{Socket.gethostname}"
     end
