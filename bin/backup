@@ -15,7 +15,7 @@ Dir[File.join(BACKUP_ROOT, "helpers", "*.rb")].each { |file| require file }
 
 # execute backup tasks
 
-def execute_tasks(dir, only)
+def execute_tasks(dir, only:)
   Dir[File.join(BACKUP_ROOT, dir, "*.rb")].sort.each do |file|
     relative_path = File.join(dir, File.basename(file))
 
@@ -65,7 +65,7 @@ class Cli < Thor
     report.body = sio.string
     report.deliver
 
-    execute_tasks "backup/down", only
+    execute_tasks "backup/down", only: only
   end
 end
 
