@@ -50,7 +50,7 @@ class Cli < Thor
   option :only, banner: "backup/run/task1,backup/run/task2"
 
   def exec
-    only = options.only.to_s.s.split(",")
+    only = options.only.to_s.split(",")
 
     # let stdout and stderr write into string io
 
