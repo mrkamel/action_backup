@@ -1,44 +1,27 @@
 #!/usr/bin/ruby
 
 BACKUP_ROOT = File.expand_path("../..", __FILE__)
-
 BACKUP_TIME = Time.now
 
-# parse command line arguments
-
-ARGV.each { |arg| ENV[$1] = $2 if arg =~ /^([^=]+)=(.*)$/ }
-
-# requirements
-
-require "rubygems"
 require "bundler/setup"
 require "stringio"
 require "fileutils"
 require "date"
+require "thor"
 require File.join(BACKUP_ROOT, "config/mailer.rb")
 
 Dir[File.join(BACKUP_ROOT, "lib", "*.rb")].each { |file| require file }
 Dir[File.join(BACKUP_ROOT, "helpers", "*.rb")].each { |file| require file }
 
-# read ONLY command line argument
-
-ONLY = ENV["ONLY"].to_s.split(",")
-
-# let stdout and stderr write into string io
-
-sio = StringIO.new
-$stderr = sio
-$stdout = sio
-
 # execute backup tasks
 
-def execute_tasks(dir)
+def execute_tasks(dir, only)
   Dir[File.join(BACKUP_ROOT, dir, "*.rb")].sort.each do |file|
     relative_path = File.join(dir, File.basename(file))
 
     # if ONLY is set up, execute task only if listed in ONLY
 
-    if ONLY.empty? || ONLY.include?(relative_path)
+    if only.empty? || only.include?(relative_path)
       puts
       puts relative_path
       puts "-" * relative_path.length
@@ -61,12 +44,30 @@ def execute_tasks(dir)
   end
 end
 
-execute_tasks "backup/up"
-execute_tasks "backup/run"
+class Cli < Thor
+  desc "exec", "Run all or only specified backup tasks"
 
-report = Report.new
-report.body = sio.string
-report.deliver
+  option :only, banner: "backup/run/task1,backup/run/task2"
 
-execute_tasks "backup/down"
+  def exec
+    only = options.only.to_s.s.split(",")
+
+    # let stdout and stderr write into string io
+
+    sio = StringIO.new
+    $stderr = sio
+    $stdout = sio
+
+    execute_tasks "backup/up", only: only
+    execute_tasks "backup/run", only: only
+
+    report = Report.new
+    report.body = sio.string
+    report.deliver
+
+    execute_tasks "backup/down", only
+  end
+end
+
+Cli.start ARGV
 
